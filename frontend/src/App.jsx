@@ -15,12 +15,32 @@ const App = () => {
       setModal(null);
     } else {
       console.log('PHOTO', photo);
-      setModal(<PhotoDetailsModal photo={photo} setModal={setModal}/>);
+      setModal(<PhotoDetailsModal photo={photo} setModal={setModal} likedState={likedState} likePic={likePic}/>);
     }
   };
+
+  const [likedState, setLikedState] = useState({});
+  const likePic = (id) => {
+    if (!likedState[id]) {
+      setLikedState(prevState => {
+        const newState = {...prevState};
+        newState[id] = true;
+        return newState;
+      });
+    } else if (likedState[id]) {
+      setLikedState(
+        prevState => {
+          const newState = {...prevState};
+          delete newState[id];
+          return newState;
+        }
+      );
+    }
+  };
+
   return (
     <div className="App">
-      <HomeRoute handleModal={handleModal}/>
+      <HomeRoute handleModal={handleModal} likePic={likePic} likedState={likedState}/>
       {modal}
     </div>
   );

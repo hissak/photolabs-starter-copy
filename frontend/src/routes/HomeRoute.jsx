@@ -2,32 +2,14 @@ import React, {useState} from 'react';
 import PhotoList from 'components/PhotoList';
 import TopNavigationBar from 'components/TopNavigationBar';
 import '../styles/HomeRoute.scss';
+import photos from "mocks/photos";
 
 const HomeRoute = (props) => {
-  const [likedState, setLikedState] = useState({});
-  const {handleModal} = props;
-
-  const likePic = (id) => {
-    if (!likedState[id]) {
-      setLikedState(prevState => {
-        const newState = {...prevState};
-        newState[id] = true;
-        return newState;
-      });
-    } else if (likedState[id]) {
-      setLikedState(
-        prevState => {
-          const newState = {...prevState};
-          delete newState[id];
-          return newState;
-        }
-      );
-    }
-  };
+  const { handleModal, likePic, likedState } = props;
   return (
     <div className="home-route">
       <TopNavigationBar likedState={likedState}/>
-      <PhotoList likedState={likedState} likePic={likePic} handleModal={handleModal}/>
+      <PhotoList likedState={likedState} likePic={likePic} handleModal={handleModal} photos={photos}/>
     </div>
   );
 };
