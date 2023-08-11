@@ -7,12 +7,14 @@ import "../styles/PhotoListItem.scss";
 
 
 const PhotoListItem = (props) => {
-  const { sampleData, likedState, likePic } = props;
+  const { sampleData, likedState, likePic, handleModal } = props;
   return (
     <div className="photo-list__item">
       <div className="photo-list-item__image-container">
         <div className="photo-list__image">
-          <img src={sampleData.urls.regular} alt="Photo" />
+          <img src={sampleData.urls.regular} alt="Photo" onClick={() => {
+            handleModal(sampleData.id);
+          }}/>
           <PhotoFavButton likedState={likedState} likePic={likePic} id={Number(sampleData.id)}/>
         </div>
         <div className="photo-list__user-profile">

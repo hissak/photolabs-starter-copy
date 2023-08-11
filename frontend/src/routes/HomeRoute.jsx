@@ -3,15 +3,17 @@ import PhotoList from 'components/PhotoList';
 import TopNavigationBar from 'components/TopNavigationBar';
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = () => {
+const HomeRoute = (props) => {
   const [likedState, setLikedState] = useState({});
+  const {handleModal} = props;
 
   const likePic = (id) => {
     if (!likedState[id]) {
-      setLikedState(prevState => ({
-        ...prevState,
-        [id]: true
-      }));
+      setLikedState(prevState => {
+        const newState = {...prevState};
+        newState[id] = true;
+        return newState;
+      });
     } else if (likedState[id]) {
       setLikedState(
         prevState => {
@@ -25,7 +27,7 @@ const HomeRoute = () => {
   return (
     <div className="home-route">
       <TopNavigationBar likedState={likedState}/>
-      <PhotoList likedState={likedState} likePic={likePic} />
+      <PhotoList likedState={likedState} likePic={likePic} handleModal={handleModal}/>
     </div>
   );
 };
