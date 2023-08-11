@@ -13,7 +13,7 @@ const PhotoListItem = (props) => {
       <div className="photo-list-item__image-container">
         <div className="photo-list__image">
           <img src={sampleData.urls.regular} alt="Photo" onClick={() => {
-            handleModal(sampleData.id);
+            handleModal(sampleData);
           }}/>
           <PhotoFavButton likedState={likedState} likePic={likePic} id={Number(sampleData.id)}/>
         </div>

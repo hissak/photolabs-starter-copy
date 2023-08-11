@@ -10,11 +10,12 @@ import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 // Note: Rendering a single component to build components in isolation
 const App = () => {
   const [modal, setModal] = useState(null);
-  const handleModal = (id) => {
+  const handleModal = (photo) => {
     if (modal) {
       setModal(null);
     } else {
-      setModal(<PhotoDetailsModal photoId={id} setModal={setModal}/>);
+      console.log('PHOTO', photo);
+      setModal(<PhotoDetailsModal photo={photo} setModal={setModal}/>);
     }
   };
   return (
