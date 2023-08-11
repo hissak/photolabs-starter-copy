@@ -13,8 +13,10 @@ const App = () => {
   const handleModal = (id) => {
     if (modal) {
       setModal(null);
-    } else {setModal(<PhotoDetailsModal photoId={id}/>)}
-  }
+    } else {
+      setModal(<PhotoDetailsModal photoId={id} setModal={setModal}/>);
+    }
+  };
   return (
     <div className="App">
       <HomeRoute handleModal={handleModal}/>
