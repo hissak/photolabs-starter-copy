@@ -7,8 +7,6 @@ const HomeRoute = () => {
   const [likedState, setLikedState] = useState({});
 
   const likePic = (id) => {
-    console.log('id', id);
-    console.log('likedState', likedState);
     if (!likedState[id]) {
       setLikedState(prevState => ({
         ...prevState,
@@ -26,7 +24,7 @@ const HomeRoute = () => {
   };
   return (
     <div className="home-route">
-      <TopNavigationBar />
+      <TopNavigationBar likedState={likedState}/>
       <PhotoList likedState={likedState} likePic={likePic} />
     </div>
   );
