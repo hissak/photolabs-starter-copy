@@ -1,9 +1,7 @@
 
 
 .photo-list__item {
-  margin: 24px;
-  padding: 8px;
-
+margin: 0.5% 0%;
   max-width: fit-content;
   max-height: fit-content;
 }
@@ -28,17 +26,20 @@
   img {
     width: 100%;
     padding: 0.5%;
+    height: 400px;
+    width: 500px;
+    overflow: scroll;
   }
   position: relative;
   border-radius: 20px;  
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   max-width: 100%;
-  max-height: auto;
+  max-height: 100%;
   object-fit: cover;
   margin-bottom: 0.5%;
+  overflow: hidden;
 }
 
 
