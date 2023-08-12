@@ -15,19 +15,21 @@ const App = () => {
       setModal(null);
     } else {
       console.log('PHOTO', photo);
-      setModal(<PhotoDetailsModal photo={photo} setModal={setModal} likedState={likedState} likePic={likePic}/>);
+      setModal(<PhotoDetailsModal photo={photo} setModal={setModal} likedState={likedState} likePic={likePic} />);
     }
   };
 
   const [likedState, setLikedState] = useState({});
   const likePic = (id) => {
     if (!likedState[id]) {
+      console.log('LIKED!', id);
       setLikedState(prevState => {
         const newState = {...prevState};
         newState[id] = true;
         return newState;
       });
     } else if (likedState[id]) {
+      console.log('UNLIKED!', id);
       setLikedState(
         prevState => {
           const newState = {...prevState};

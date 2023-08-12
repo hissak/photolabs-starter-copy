@@ -5,7 +5,7 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
-  const { photo, setModal, likedState, likePic } = props;
+  const { photo, setModal, likedState, likePic, setLikedState } = props;
   const similarPhotos = Object.values(photo.similarPhotos);
   
   return (
@@ -16,7 +16,8 @@ const PhotoDetailsModal = (props) => {
       <div className="photo-details-modal__images">
         <img className='photo-details-modal--image' src={photo.urls.regular} alt="Photo"/>
         <h1>Similar Photos:</h1>
-        <PhotoList photos={similarPhotos} likedState={likedState} likePic={likePic}/>
+        {console.log('likedState in Modal:', likedState)}
+        <PhotoList photos={similarPhotos} likedState={likedState} likePic={likePic} />
       </div>
     </div>
   );
