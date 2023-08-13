@@ -15,7 +15,7 @@ const PhotoListItem = (props) => {
           <img src={sampleData.urls.regular} alt="Photo" onClick={() => {
             handleModal(sampleData);
           }}/>
-          <PhotoFavButton likedState={likedState} likePic={likePic} id={Number(sampleData.id)}/>
+          <PhotoFavButton likedState={likedState} likePic={likePic} photo={sampleData} id={Number(sampleData.id)}/>
         </div>
         <div className="photo-list__user-profile">
           <div className="photo-list-item__image-container__profile__profile-image">
