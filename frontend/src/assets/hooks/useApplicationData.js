@@ -12,16 +12,17 @@ const reducer = (state, action) => {
     return { ...state, modal: null };
   } else if (action.type === "SET_LIKED_STATE") {
     if (!state.likedState[action.value.id]) {
-      const newState = { ...state };
-      newState.likedState[action.value.id] = true;
+      const likedState = { ...state.likedState };
+      console.log('NEWSTATE IF LIKED', likedState);
+      likedState[action.value.id] = true;
       console.log('STATE IF LIKED', state.likedState);
-      return newState;
-    } else if (state.likedState[action.value.id]) {
-      const newState = { ...state };
+      return {...state, likedState};
+    }
+    if (state.likedState[action.value.id]) {
+      const likedState = { ...state.likePic };
       console.log('WHY AM I RUNNING');
-      // delete newState.likedState[action.value.id];
-      // console.log("NEWSTATE", newState);
-      return newState;
+      delete likedState[action.value.id];
+      return {...state, likedState};
     }
   } else {
     throw new Error(
@@ -48,37 +49,6 @@ const useApplicationData = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
 
-  //   const handleModal = (photo) => {
-  //     if (modal) {
-  //       setModal(null);
-  //     } else {
-  //       console.log('PHOTO', photo);
-  //       setModal(<PhotoDetailsModal photo={photo} setModal={setModal} likedState={likedState} likePic={likePic} />);
-  //     }
-  //   };
-    
-  // const likePic = (id) => {
-  //   if (!likedState[id]) {
-  //     console.log('LIKED!', id);
-  //     setLikedState(prevState => {
-  //       const newState = {...prevState};
-  //       newState[id] = true;
-  //       return newState;
-  //     });
-  //   } else if (likedState[id]) {
-  //     console.log('UNLIKED!', id);
-  //     setLikedState(
-  //       prevState => {
-  //         const newState = {...prevState};
-  //         delete newState[id];
-  //         return newState;
-  //       }
-  //     );
-  //     }
-  //   };
-
-  //   const onClosePhotoDetailsModal = () => setModal(null);
-  //   console.log('STATE', state);
   return {state, likePic, handleModal, closeModal};
 };
 
