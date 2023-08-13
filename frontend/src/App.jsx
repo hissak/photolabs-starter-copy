@@ -5,45 +5,17 @@ import './App.scss';
 import TopNavigationBar from 'components/TopNavigationBar';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
-
+import useApplicationData from 'assets/hooks/useApplicationData';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const [modal, setModal] = useState(null);
-  const handleModal = (photo) => {
-    if (modal) {
-      setModal(null);
-    } else {
-      console.log('PHOTO', photo);
-      setModal(<PhotoDetailsModal photo={photo} setModal={setModal} likedState={likedState} likePic={likePic} />);
-    }
-  };
-
-  const [likedState, setLikedState] = useState({});
-  const likePic = (id) => {
-    if (!likedState[id]) {
-      console.log('LIKED!', id);
-      setLikedState(prevState => {
-        const newState = {...prevState};
-        newState[id] = true;
-        return newState;
-      });
-    } else if (likedState[id]) {
-      console.log('UNLIKED!', id);
-      setLikedState(
-        prevState => {
-          const newState = {...prevState};
-          delete newState[id];
-          return newState;
-        }
-      );
-    }
-  };
+  const { state } = useApplicationData();
+  console.log ('state in App:', state)
 
   return (
     <div className="App">
-      <HomeRoute handleModal={handleModal} likePic={likePic} likedState={likedState}/>
-      {modal}
+      <HomeRoute handleModal={state.handleModal} likePic={state.likePic} likedState={state.likedState}/>
+      {state.modal}
     </div>
   );
 };
