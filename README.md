@@ -11,6 +11,11 @@ This project was made using React, Express, Axios, CreateReactApp, and Webpack.
 
 ## Final Product
 
+!["Screenshot of main page"](https://github.com/hissak/photolabs-starter/blob/main/screenshots/Screenshot%202023-08-14%20at%205.31.48%20PM.png?raw=true)
+!["Screenshot 1 of modal"](https://github.com/hissak/photolabs-starter/blob/main/screenshots/Screenshot%202023-08-14%20at%205.32.33%20PM.png?raw=true)
+!["Screenshot 2 of modal"](https://github.com/hissak/photolabs-starter/blob/main/screenshots/Screenshot%202023-08-14%20at%205.32.50%20PM.png?raw=true)
+!["Screenshot of liked photos with like alert in nav bar"](https://github.com/hissak/photolabs-starter/blob/main/screenshots/Screenshot%202023-08-14%20at%205.33.25%20PM.png?raw=true)
+
 ## Setup
 
 Install dependencies with `npm install` in each respective `/frontend` and `/backend`.
