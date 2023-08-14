@@ -16,8 +16,15 @@ const PhotoDetailsModal = (props) => {
         <img src={closeSymbol} alt="close symbol" onClick={closeModal}/>
       </button>
       <div className="photo-details-modal__images">
-        <div>
-          <img className='photo-details-modal--image' src={photo.urls.regular} alt="Photo"/>
+        <div className="photo-details-modal__image-container">
+          <img className='photo-details-modal__image' src={photo.urls.full} alt="Photo"/>
+          <div className="photo-details-modal__photographer-details">
+            <img className='photo-details-modal__profile' src={photo.user.profile} />
+            <div className="photo-details-modal__user">
+              <p className="photo-details-modal__photographer-name">{photo.user.name}</p>
+              <p className='photo-details-modal__photographer-location'>{photo.location.city}, {photo.location.country}</p>
+            </div>
+          </div>
           <PhotoFavButton photo={photo} likedState={likedState} likePic={likePic} />
         </div>
         <h1>Similar Photos:</h1>

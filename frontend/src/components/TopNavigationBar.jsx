@@ -11,7 +11,7 @@ const TopNavigation = (props) => {
   const displayAlert = Object.keys(likedState).length > 0 ? true : false;
   return (
     <div className="top-nav-bar">
-      <span className="top-nav-bar__logo">PhotoLabs</span>
+      <span className="top-nav-bar__logo" onClick={() => setTopic(null)}>PhotoLabs</span>
       <TopicList topicData={topicData} setTopic={setTopic}/>
       <FavIcon displayAlert={displayAlert} likedState={true}/>
     </div>

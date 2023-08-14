@@ -2,8 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: justify;
-  gap: 1%;
+  justify-content: center;
+  gap: 10%;
+  align-items: space-evenly;
   list-style-type: none;
   width: 100%;
 }
@@ -12,4 +13,9 @@
   content: "";
   flex: 0 1 30%;
   margin: 5px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }

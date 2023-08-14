@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import PhotoDetailsModal from "routes/PhotoDetailsModal";
+import axios from "axios";
 
 const ACTIONS = {
   SET_MODAL: "SET_MODAL",
@@ -22,6 +22,7 @@ const {SET_MODAL,
 
 const reducer = (state, action) => {
   switch (action.type) {
+
   case SET_MODAL:
     if (state.modal) {
       return { ...state, modal: null };
@@ -29,8 +30,10 @@ const reducer = (state, action) => {
       return { ...state, modal: action.value };
     }
     break;
+
   case CLOSE_MODAL:
     return { ...state, modal: null };
+
   case SET_LIKED_STATE:
     if (!state.likedState[action.value.id]) {
       const likedState = { ...state.likedState };
@@ -43,12 +46,16 @@ const reducer = (state, action) => {
       return {...state, likedState};
     }
     break;
+
   case SET_PHOTO_DATA:
     return {...state, photoData: action.value};
+
   case SET_TOPIC_DATA:
     return {...state, topicData: action.value};
+
   case SET_CURRENT_TOPIC:
     return {...state, currentTopic: action.value};
+    
   default:
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
@@ -70,22 +77,19 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    fetch("http://localhost:8001/api/topics")
-      .then((response) => response.json())
-      .then((data) => dispatch({ type: SET_TOPIC_DATA, value: data }))
+    axios.get("http://localhost:8001/api/topics")
+      .then((res) => dispatch({ type: SET_TOPIC_DATA, value: res.data }))
       .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
     if (state.currentTopic) {
-      fetch(`http://localhost:8001/api/topics/photos/${state.currentTopic}`)
-        .then((response) => response.json())
-        .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }))
+      axios.get(`http://localhost:8001/api/topics/photos/${state.currentTopic}`)
+        .then((res) => dispatch({ type: SET_PHOTO_DATA, value: res.data }))
         .catch((error) => console.log(error));
     } else {
-      fetch("http://localhost:8001/api/photos")
-        .then((response) => response.json())
-        .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }))
+      axios.get("http://localhost:8001/api/photos")
+        .then((res) => dispatch({ type: SET_PHOTO_DATA, value: res.data }))
         .catch((error) => console.log(error));
     }
   }, [state.currentTopic]);
@@ -105,9 +109,6 @@ const useApplicationData = () => {
 
   return {state, likePic, handleModal, closeModal, setTopic};
 };
-
-
-
 
 
 export default useApplicationData;
