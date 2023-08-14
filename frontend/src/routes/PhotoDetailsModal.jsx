@@ -7,7 +7,6 @@ import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = (props) => {
   const { photo, likedState, likePic, closeModal, handleModal } = props;
-  console.log('PHOTOS IN MODAL:', photo);
   const similarPhotos = Object.values(photo.similar_photos);
   
   return (
@@ -28,7 +27,6 @@ const PhotoDetailsModal = (props) => {
           <PhotoFavButton photo={photo} likedState={likedState} likePic={likePic} />
         </div>
         <h1>Similar Photos:</h1>
-        {console.log('likedState in Modal:', likedState)}
         <PhotoList photos={similarPhotos} likedState={likedState} likePic={likePic} handleModal={handleModal}/>
       </div>
     </div>

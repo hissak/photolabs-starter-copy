@@ -6,6 +6,9 @@ import "../styles/TopicList.scss";
 
 const TopicList = (props) => {
   const { topicData, setTopic } = props;
+
+  //This component is used to render the list of topics on the home page.
+
   const topicArray = topicData.map((topic) => {
     return <TopicListItem key={topic.id} topic={topic} setTopic={setTopic}/>;
   });

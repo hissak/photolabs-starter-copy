@@ -18,7 +18,7 @@ const {SET_MODAL,
   SET_TOPIC_DATA,
   SET_CURRENT_TOPIC} = ACTIONS;
 
-
+//Reducer is used to update the state of the application based on the action type.
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -82,6 +82,9 @@ const useApplicationData = () => {
       .catch((error) => console.log(error));
   }, []);
 
+  //useEffect below is used to fetch the photos from the database and set the state of the application.
+  //The photos fetched depend on whether or not a topic has been selected.
+
   useEffect(() => {
     if (state.currentTopic) {
       axios.get(`http://localhost:8001/api/topics/photos/${state.currentTopic}`)
@@ -94,6 +97,12 @@ const useApplicationData = () => {
     }
   }, [state.currentTopic]);
 
+  //The functions below are used to update the state of the application based on the action type.
+  //likePic is used to update the likedState of the application.
+  //handleModal is used to open the modal.
+  //closeModal is used to close the modal.
+  //setTopic is used to set the currentTopic of the application and new photos are fetched accordingly.
+  
   const likePic = (photo) => {
     dispatch({ type: SET_LIKED_STATE, value: photo });
   };

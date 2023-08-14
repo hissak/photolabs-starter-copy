@@ -8,6 +8,9 @@ import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = (props) => {
   const { sampleData, likedState, likePic, handleModal } = props;
+
+  //This component is used to render the individual photo cards on the homepage and in the modal.
+
   return (
     <div className="photo-list__item">
       <div className="photo-list-item__image-container">
