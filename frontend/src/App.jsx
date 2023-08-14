@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import PhotoList from 'components/PhotoList';
 import './App.scss';
 import TopNavigationBar from 'components/TopNavigationBar';
@@ -9,12 +8,12 @@ import useApplicationData from 'assets/hooks/useApplicationData';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const { state, likePic, handleModal, closeModal } = useApplicationData();
+  const { state, likePic, handleModal, closeModal, setTopic } = useApplicationData();
   console.log('state in App:', state);
 
   return (
     <div className="App">
-      <HomeRoute handleModal={handleModal} likePic={likePic} likedState={state.likedState} photoData={state.photoData} topicData={state.topicData}/>
+      <HomeRoute handleModal={handleModal} likePic={likePic} likedState={state.likedState} photoData={state.photoData} topicData={state.topicData} setTopic={setTopic}/>
       {state.modal && <PhotoDetailsModal photo={state.modal} likedState={state.likedState} likePic={likePic} closeModal={closeModal} handleModal={handleModal}/>}
     </div>
   );

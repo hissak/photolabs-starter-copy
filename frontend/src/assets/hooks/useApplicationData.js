@@ -7,8 +7,18 @@ const ACTIONS = {
   SET_LIKED_STATE: "SET_LIKED_STATE",
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  SET_CURRENT_TOPIC: "SET_CURRENT_TOPIC",
 };
-const {SET_MODAL, CLOSE_MODAL, SET_LIKED_STATE, SET_PHOTO_DATA, SET_TOPIC_DATA} = ACTIONS;
+
+
+const {SET_MODAL,
+  CLOSE_MODAL,
+  SET_LIKED_STATE,
+  SET_PHOTO_DATA,
+  SET_TOPIC_DATA,
+  SET_CURRENT_TOPIC} = ACTIONS;
+
+
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,12 +47,16 @@ const reducer = (state, action) => {
     return {...state, photoData: action.value};
   case SET_TOPIC_DATA:
     return {...state, topicData: action.value};
+  case SET_CURRENT_TOPIC:
+    return {...state, currentTopic: action.value};
   default:
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
     );
   }
 };
+
+
 const useApplicationData = () => {
 
   const initialState = {
@@ -50,20 +64,32 @@ const useApplicationData = () => {
     likedState: {},
     photoData: [],
     topicData: [],
+    currentTopic: null,
   };
+  
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     fetch("http://localhost:8001/api/photos")
       .then((response) => response.json())
-      .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }));
+      .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }))
+      .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
     fetch("http://localhost:8001/api/topics")
       .then((response) => response.json())
-      .then((data) => dispatch({ type: SET_TOPIC_DATA, value: data }));
+      .then((data) => dispatch({ type: SET_TOPIC_DATA, value: data }))
+      .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    if (state.currentTopic) {
+      fetch(`http://localhost:8001/api/topics/photos/${state.currentTopic}`)
+        .then((response) => response.json())
+        .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }))
+        .catch((error) => console.log(error));
+    }
+  }, [state.currentTopic]);
 
   const likePic = (photo) => {
     dispatch({ type: SET_LIKED_STATE, value: photo });
@@ -74,8 +100,11 @@ const useApplicationData = () => {
   const closeModal = () => {
     dispatch({ type: CLOSE_MODAL });
   };
+  const setTopic = (topic) => {
+    dispatch({ type: SET_CURRENT_TOPIC, value: topic });
+  };
 
-  return {state, likePic, handleModal, closeModal};
+  return {state, likePic, handleModal, closeModal, setTopic};
 };
 
 
