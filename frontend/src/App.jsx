@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <HomeRoute handleModal={handleModal} likePic={likePic} likedState={state.likedState} photoData={state.photoData}/>
+      <HomeRoute handleModal={handleModal} likePic={likePic} likedState={state.likedState} photoData={state.photoData} topicData={state.topicData}/>
       {state.modal && <PhotoDetailsModal photo={state.modal} likedState={state.likedState} likePic={likePic} closeModal={closeModal} handleModal={handleModal}/>}
     </div>
   );

@@ -35,6 +35,8 @@ const reducer = (state, action) => {
     break;
   case SET_PHOTO_DATA:
     return {...state, photoData: action.value};
+  case SET_TOPIC_DATA:
+    return {...state, topicData: action.value};
   default:
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
@@ -56,6 +58,11 @@ const useApplicationData = () => {
       .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }));
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:8001/api/topics")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: SET_TOPIC_DATA, value: data }));
+  }, []);
 
 
   const likePic = (photo) => {
