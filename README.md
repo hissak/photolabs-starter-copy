@@ -7,7 +7,7 @@ The PhotoLabs project for the Web Development React course programming.
 A single page app, made using REACT, that allows users to view photos in a grid. Users can like photos (a small alert icon is displayed in the navbar if there are any liked photos) and filter based on topic.
 If a user is interested in a photo, they can click on it to view a larger version of the photo, along with a list of similar photos.
 
-This project was made using React, Express, Axios, CreateReactApp, and Webpack.
+This project was made using React, Express, Axios, CreateReactApp, Webpack and PostgreSQL.
 
 ## Final Product
 
