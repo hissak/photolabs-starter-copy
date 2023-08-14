@@ -1,30 +1,41 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
 
+const ACTIONS = {
+  SET_MODAL: "SET_MODAL",
+  CLOSE_MODAL: "CLOSE_MODAL",
+  SET_LIKED_STATE: "SET_LIKED_STATE",
+  SET_PHOTO_DATA: "SET_PHOTO_DATA",
+  SET_TOPIC_DATA: "SET_TOPIC_DATA",
+};
+const {SET_MODAL, CLOSE_MODAL, SET_LIKED_STATE, SET_PHOTO_DATA, SET_TOPIC_DATA} = ACTIONS;
+
 const reducer = (state, action) => {
-  if (action.type === "SET_MODAL") {
+  switch (action.type) {
+  case SET_MODAL:
     if (state.modal) {
       return { ...state, modal: null };
     } else if (!state.modal) {
       return { ...state, modal: action.value };
     }
-  } else if (action.type === "CLOSE_MODAL") {
+    break;
+  case CLOSE_MODAL:
     return { ...state, modal: null };
-  } else if (action.type === "SET_LIKED_STATE") {
+  case SET_LIKED_STATE:
     if (!state.likedState[action.value.id]) {
       const likedState = { ...state.likedState };
-      console.log('NEWSTATE IF LIKED', likedState);
       likedState[action.value.id] = true;
-      console.log('STATE IF LIKED', state.likedState);
       return {...state, likedState};
     }
     if (state.likedState[action.value.id]) {
       const likedState = { ...state.likePic };
-      console.log('WHY AM I RUNNING');
       delete likedState[action.value.id];
       return {...state, likedState};
     }
-  } else {
+    break;
+  case SET_PHOTO_DATA:
+    return {...state, photoData: action.value};
+  default:
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
     );
@@ -34,19 +45,27 @@ const useApplicationData = () => {
 
   const initialState = {
     modal: null,
-    likedState: {}
+    likedState: {},
+    photoData: [],
+    topicData: [],
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    fetch("http://localhost:8001/api/photos")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }));
+  }, []);
+
 
 
   const likePic = (photo) => {
-    dispatch({ type: "SET_LIKED_STATE", value: photo });
+    dispatch({ type: SET_LIKED_STATE, value: photo });
   };
   const handleModal = (photo) => {
-    dispatch({ type: "SET_MODAL", value: photo });
+    dispatch({ type: SET_MODAL, value: photo });
   };
   const closeModal = () => {
-    dispatch({ type: "CLOSE_MODAL" });
+    dispatch({ type: CLOSE_MODAL });
   };
 
   return {state, likePic, handleModal, closeModal};
