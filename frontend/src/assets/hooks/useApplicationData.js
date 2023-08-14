@@ -66,14 +66,8 @@ const useApplicationData = () => {
     topicData: [],
     currentTopic: null,
   };
-  
+
   const [state, dispatch] = useReducer(reducer, initialState);
-  useEffect(() => {
-    fetch("http://localhost:8001/api/photos")
-      .then((response) => response.json())
-      .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }))
-      .catch((error) => console.log(error));
-  }, []);
 
   useEffect(() => {
     fetch("http://localhost:8001/api/topics")
@@ -85,6 +79,11 @@ const useApplicationData = () => {
   useEffect(() => {
     if (state.currentTopic) {
       fetch(`http://localhost:8001/api/topics/photos/${state.currentTopic}`)
+        .then((response) => response.json())
+        .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }))
+        .catch((error) => console.log(error));
+    } else {
+      fetch("http://localhost:8001/api/photos")
         .then((response) => response.json())
         .then((data) => dispatch({ type: SET_PHOTO_DATA, value: data }))
         .catch((error) => console.log(error));
