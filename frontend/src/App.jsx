@@ -6,7 +6,7 @@ import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 import useApplicationData from 'assets/hooks/useApplicationData';
 
-// Note: Rendering a single component to build components in isolation
+
 const App = () => {
   const { state, likePic, handleModal, closeModal, setTopic } = useApplicationData();
   //modal is a boolean that determines if the modal is open or not.
