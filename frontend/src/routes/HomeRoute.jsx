@@ -4,10 +4,10 @@ import '../styles/HomeRoute.scss';
 import React from 'react';
 
 const HomeRoute = (props) => {
-  const { handleModal, likePic, likedState, photoData, topicData, setTopic, currenTopic } = props;
+  const { handleModal, likePic, likedState, photoData, topicData, setTopic, currenTopic, setFavouritesView } = props;
   return (
     <div className="home-route">
-      <TopNavigationBar likedState={likedState} topicData={topicData} setTopic={setTopic} currenTopic={currenTopic}/>
+      <TopNavigationBar likedState={likedState} topicData={topicData} setTopic={setTopic} currenTopic={currenTopic} setFavouritesView={setFavouritesView}/>
       <PhotoList likedState={likedState} likePic={likePic} handleModal={handleModal} photos={photoData}/>
     </div>
   );
